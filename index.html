@@ -1,41 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Bitapp by nonlux</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <title>Bitapp by nonlux</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Bitapp</h1>
-        <p class="header">Bitrapp -bitrix  development tool</p>
+    <div id="container">
+      <div class="inner">
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/nonlux/bitapp/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/nonlux/bitapp/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/nonlux/bitapp">View On GitHub</a></li>
-        </ul>
+        <header>
+          <h1>Bitapp</h1>
+          <h2>Инструмент для комфортной разработки решений под управлением 1С-Bitrix CMS.</h2>
+        </header>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/nonlux">nonlux</a></p>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/nonlux/bitapp/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/nonlux/bitapp/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/nonlux/bitapp" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
+        <hr>
 
-      </header>
-      <section>
-        <h1>
-<a name="bitapp" class="anchor" href="#bitapp"><span class="octicon octicon-link"></span></a>Bitapp</h1>
-
-<p>Bitapp - инструмент для комфортной разработки решений под управлением 1С-Bitrix CMS.</p>
-
-<h2>
+        <section id="main_content">
+          <h2>
 <a name="%D0%9E%D0%B1%D1%8F%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE-%D0%B4%D0%BB%D1%8F-%D0%BE%D0%B7%D0%BD%D0%B0%D0%BA%D0%BE%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5" class="anchor" href="#%D0%9E%D0%B1%D1%8F%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE-%D0%B4%D0%BB%D1%8F-%D0%BE%D0%B7%D0%BD%D0%B0%D0%BA%D0%BE%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5"><span class="octicon octicon-link"></span></a>Обязательно для ознакомление</h2>
 
 <p>Я не являюсь членом команды 1С-Bitrix, поэтому:</p>
@@ -46,12 +42,62 @@
 <li>Вы не можете обращаться с вопросами по работе продукта в адрес официальной Технической поддержки Битрикс</li>
 <li>Я готов выслушать все замечания от официальной команды разработчиков. </li>
 </ul><p>Проект находится в стадии разработки, могут быть внесены критические изменения, нарушающие функционирование продукта. Я постараюсь вести подробный лог ошибок и изменений, чтобы могли использовать данное решение уже сейчас. </p>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
+
+<h2>
+<a name="%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0" class="anchor" href="#%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0"><span class="octicon octicon-link"></span></a>Установка</h2>
+
+<ol>
+<li>Установите <a href="https://getcomposer.org/doc/00-intro.md">Composer</a>
+</li>
+<li>Создайте новый проект:</li>
+</ol><h2>
+<a name="%D0%9F%D0%BB%D0%B0%D0%BD%D1%8B-%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0" class="anchor" href="#%D0%9F%D0%BB%D0%B0%D0%BD%D1%8B-%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0"><span class="octicon octicon-link"></span></a>Планы развития проекта</h2>
+
+<h3>
+<a name="%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%B8-%D0%94%D0%B5%D0%BF%D0%BB%D0%BE%D0%B9" class="anchor" href="#%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%B8-%D0%94%D0%B5%D0%BF%D0%BB%D0%BE%D0%B9"><span class="octicon octicon-link"></span></a>Сборка и Деплой</h3>
+
+<p>Многие проекты хостятся на Web-хостингах. Из-за ряда ограничей хостинга данное решение на получится развернуть. Я думаю предусмотреть отдельную комнду для сборки проекта. </p>
+
+<p>Планируемые возможности.</p>
+
+<ul>
+<li>Минификация, оптимизация всех ресурсов: js, css, картинки </li>
+<li>Дамп базы</li>
+<li>Создание архива сборки</li>
+<li>Деплой через ssh на хостинг </li>
+</ul><h3>
+<a name="%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D0%B8%D0%BD%D1%84%D0%BE%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0%D0%BC" class="anchor" href="#%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D0%B8%D0%BD%D1%84%D0%BE%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0%D0%BC"><span class="octicon octicon-link"></span></a>Работа с инфоблокам</h3>
+
+<p>Добавление, удаление инфоблоков, типов инфоблоков.</p>
+
+<h3>
+<a name="%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BE%D0%B4%D0%B0" class="anchor" href="#%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BE%D0%B4%D0%B0"><span class="octicon octicon-link"></span></a>Генерация шаблонного кода</h3>
+
+<p>Генерация фийлов для решений, шаблонов, модулей</p>
+
+<h3>
+<a name="behat-features" class="anchor" href="#behat-features"><span class="octicon octicon-link"></span></a>Behat features</h3>
+
+<p>Добавление стандартых сценариев для работы с 1С-Битрикс с помощью <a href="http://behat.org/">behat</a></p>
+        </section>
+
+        <footer>
+          Bitapp is maintained by <a href="https://github.com/nonlux">nonlux</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+                  <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-52350130-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
   </body>
 </html>
