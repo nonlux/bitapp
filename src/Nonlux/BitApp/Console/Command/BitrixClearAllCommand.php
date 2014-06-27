@@ -2,7 +2,6 @@
 
 namespace Nonlux\BitApp\Console\Command;
 
-use Nonlux\BitApp\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

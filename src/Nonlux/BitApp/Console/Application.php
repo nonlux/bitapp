@@ -14,12 +14,16 @@ use Symfony\Component\Console\Command\ListCommand;
 class Application extends BaseApplication
 {
     const DEFAULT_DUMP_PATH = "/web";
+    const DEFAULT_SOURCE_PATH="/bitrix/bitrixcms-standard";
     const APP_NAME = "Bitapp";
     const VERSION = "DEV";
 
+    protected $vendorPath;
     public function __construct($vendorPath)
     {
+        $this->vendorPath=$vendorPath;
         parent::__construct(Application::APP_NAME, Application::VERSION);
+
     }
 
     protected function getDefaultCommands()
@@ -27,7 +31,8 @@ class Application extends BaseApplication
         return array_merge(
             parent::getDefaultCommands(),
             array(
-                new BitrixClearAllCommand($this->getBasePath() . Application::DEFAULT_DUMP_PATH),
+                new BitrixClearAllCommand($this->getProjectPath()),
+                new BitrixDumpStandardCommand($this->getSourcePath(),$this->getProjectPath()),
             )
         );
     }
@@ -35,5 +40,12 @@ class Application extends BaseApplication
     public function getBasePath()
     {
         return getcwd();
+    }
+
+    public function getProjectPath(){
+        return $this->getBasePath() . Application::DEFAULT_DUMP_PATH;
+    }
+    public function getSourcePath(){
+             return $this->vendorPath.Application::DEFAULT_SOURCE_PATH;
     }
 }

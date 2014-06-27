@@ -6,17 +6,14 @@ foreach($paths as $path){
     $autoloaderPath=$vendorPath."/autoload.php";
     if (file_exists($autoloaderPath)){
        require_once $autoloaderPath;
-       if (!defined('VENDOR_PATH')){
-            define('VENDOR_PATH', $vendorPath);
-       }
-       return true;
+       return $vendorPath;
     }
  }
 
  return false;
 }
-
-if (!findAutoloader(array('/../vendor', '/../../..'))) {
+$vendorPath=findAutoloader(array('/../vendor', '/../../..'));
+if (!$vendorPath) {
     die(
         'You must set up the project dependencies, run the following commands:'.PHP_EOL.
         'curl -s http://getcomposer.org/installer | php'.PHP_EOL.
@@ -26,5 +23,5 @@ if (!findAutoloader(array('/../vendor', '/../../..'))) {
 
 use Nonlux\BitApp\Console\Application;
 
-$console = new Application(VENDOR_PATH);
+$console = new Application($vendorPath);
 $console->run();
