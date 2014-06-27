@@ -1,0 +1,44 @@
+{
+    "name": "nonlux/bitapp",
+    "description": "Bitrix development tool",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "nonlux",
+            "email": "nonluxi@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "symfony/console":"dev-master",
+        "symfony/filesystem":"dev-master",
+        "symfony/finder":"dev-master"
+    },
+    "require-dev":{
+        "bitrix/bitrixcms-standard":"dev-master"
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "bitrix/bitrixcms-standard",
+                "version": "dev-master",
+                "dist": {
+                    "url" : "http://www.1c-bitrix.ru/download/standard_encode_php5.tar.gz",
+                    "type": "tar"
+                }
+            }
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "suggest": {
+        "bitrix/bitrixcms-standard": "1C-Битрикс: Управление сайтом"
+    }
+}
