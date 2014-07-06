@@ -1,5 +1,6 @@
-/vendor/
+/vendor/*
 /.idea/*
-composer.lock
 /test_data/project
-/web/
+/web/*
+/bin/*
+!/bin/bitapp
