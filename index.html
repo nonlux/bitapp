@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Bitapp by nonlux</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Bitapp : Инструмент для комфортной разработки проектов под управлением 1С-Bitrix CMS." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Bitapp</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Bitapp</h1>
-          <h2>Инструмент для комфортной разработки проектов под управлением 1С-Bitrix CMS.</h2>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nonlux/bitapp">View on GitHub</a>
+
+          <h1 id="project_title">Bitapp</h1>
+          <h2 id="project_tagline">Инструмент для комфортной разработки проектов под управлением 1С-Bitrix CMS.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nonlux/bitapp/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nonlux/bitapp/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
+    </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/nonlux/bitapp/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/nonlux/bitapp/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/nonlux/bitapp" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <h2>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
 <a name="%D0%9E%D0%B1%D1%8F%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE-%D0%B4%D0%BB%D1%8F-%D0%BE%D0%B7%D0%BD%D0%B0%D0%BA%D0%BE%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F" class="anchor" href="#%D0%9E%D0%B1%D1%8F%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE-%D0%B4%D0%BB%D1%8F-%D0%BE%D0%B7%D0%BD%D0%B0%D0%BA%D0%BE%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F"><span class="octicon octicon-link"></span></a>Обязательно для ознакомления</h2>
 
 <p>Я не являюсь членом команды 1С-Bitrix, поэтому:</p>
@@ -49,17 +49,50 @@
 <h2>
 <a name="%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0" class="anchor" href="#%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0"><span class="octicon octicon-link"></span></a>Установка</h2>
 
-<ol>
-<li>Установите <a href="https://getcomposer.org/doc/00-intro.md">Composer</a>
-</li>
-<li>Создайте новый проект:</li>
-</ol><h2>
+<p>1 Установите <a href="https://getcomposer.org/doc/00-intro.md">Composer</a></p>
+
+<p>2 Создайте новый проект:</p>
+
+<pre><code>composer create-project nonlux/bitapp-project  path-to-project -sdev
+</code></pre>
+
+<p>3 Перейдите в  директорию проекта</p>
+
+<p>4 Добавьте в composer.json следующее:</p>
+
+<pre><code>require {
+...
+"bitrix/bitrixcms-standard":"dev-master",
+...
+}
+</code></pre>
+
+<p>5 Обновите зависимости:</p>
+
+<pre><code> composer update
+</code></pre>
+
+<blockquote>
+<p>Я специально не добавил в проект прямую зависимость от исходников битрикс, что бы в следующих релизах можно было изменить версию битрикс. </p>
+</blockquote>
+
+<p>6 Развертите исходиники битрикс в web-директории проекта</p>
+
+<pre><code>bin/bitapp bitrix:dump:standard
+</code></pre>
+
+<blockquote>
+<p>У нас в проекте появилась директория web.
+Это и есть домашняя директория для сайта.  Настройте свой веб-сервер для работы с ней  и увидете предложение установить битрикс, но не делайте этого.</p>
+</blockquote>
+
+<h2>
 <a name="%D0%9F%D0%BB%D0%B0%D0%BD%D1%8B-%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0" class="anchor" href="#%D0%9F%D0%BB%D0%B0%D0%BD%D1%8B-%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0"><span class="octicon octicon-link"></span></a>Планы развития проекта</h2>
 
 <h3>
 <a name="%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%B8-%D0%94%D0%B5%D0%BF%D0%BB%D0%BE%D0%B9" class="anchor" href="#%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%B8-%D0%94%D0%B5%D0%BF%D0%BB%D0%BE%D0%B9"><span class="octicon octicon-link"></span></a>Сборка и Деплой</h3>
 
-<p>Многие проекты хостятся на Web-хостингах. Из-за ряда ограничей хостинга данное решение на получится развернуть. Я думаю предусмотреть отдельную комнду для сборки проекта. </p>
+<p>Многие проекты хостятся на Web-хостингах. Из-за ряда ограничей, на некоторых хостингах данный проект нe получится развернуть. Я думаю предусмотреть отдельную комнду для сборки проекта. </p>
 
 <p>Планируемые возможности:</p>
 
@@ -67,7 +100,7 @@
 <li>Минификация, оптимизация всех ресурсов: js, css, картинки </li>
 <li>Дамп базы</li>
 <li>Создание архива сборки</li>
-<li>Деплой через ssh на хостинг </li>
+<li>Деплой через ssh или ftp на хостинг </li>
 </ul><h3>
 <a name="%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D0%B8%D0%BD%D1%84%D0%BE%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0%D0%BC" class="anchor" href="#%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D0%B8%D0%BD%D1%84%D0%BE%D0%B1%D0%BB%D0%BE%D0%BA%D0%B0%D0%BC"><span class="octicon octicon-link"></span></a>Работа с инфоблокам</h3>
 
@@ -76,20 +109,29 @@
 <h3>
 <a name="%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BE%D0%B4%D0%B0" class="anchor" href="#%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BE%D0%B4%D0%B0"><span class="octicon octicon-link"></span></a>Генерация шаблонного кода</h3>
 
-<p>Генерация фийлов для решений, шаблонов, модулей</p>
+<p>Генерация файлов для решений, шаблонов, модулей</p>
 
 <h3>
 <a name="behat-features" class="anchor" href="#behat-features"><span class="octicon octicon-link"></span></a>Behat features</h3>
 
 <p>Добавление стандартых сценариев для работы с 1С-Битрикс с помощью <a href="http://behat.org/">behat</a></p>
-        </section>
 
-        <footer>
-          Bitapp is maintained by <a href="https://github.com/nonlux">nonlux</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+<h3>
+<a name="%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85-%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B9" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85-%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B9"><span class="octicon octicon-link"></span></a>Проверка начальных требований</h3>
 
-                  <script type="text/javascript">
+<p>Хорошо было бы проверять необходимые условия для работы битрикс, вдруг какое-нибуть расширение забыли поставить</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Bitapp maintained by <a href="https://github.com/nonlux">nonlux</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -100,7 +142,6 @@
             } catch(err) {}
           </script>
 
-      </div>
-    </div>
+
   </body>
 </html>
