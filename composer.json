@@ -42,5 +42,6 @@
     },
     "suggest": {
         "bitrix/bitrixcms-standard": "1C-Битрикс: Управление сайтом"
-    }
+    },
+    "bin": ["bin/bitapp"]
 }
