@@ -1,4 +1,5 @@
 <?php
+define('BEHAT_ERROR_REPORTING', E_ERROR | E_WARNING | E_PARSE);
 
 use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Context\TranslatedContextInterface,
@@ -11,6 +12,7 @@ use Nonlux\BitApp\Console\Command\BitrixDumpStandardCommand;
 use Nonlux\BitApp\Console\Command\BitrixDumpFixtureCommand;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 //
 // Require 3rd-party libraries here:
@@ -103,6 +105,11 @@ class FeatureContext extends BehatContext
         return new BitrixDumpFixtureCommand($this->testProjectPath, $this->testPath . "/fixture");
     }
 
+    protected function createBitrixInstallCommand()
+    {
+        return new \Nonlux\BitApp\Console\Command\BitrixInstallCommand($this->testProjectPath);
+    }
+
     /**
      * @When /^I execute "([^"]*)" with "([^"]*)"$/
      */
@@ -112,13 +119,19 @@ class FeatureContext extends BehatContext
             'bitrix:clear:all' => 'BitrixClearAllCommand',
             'bitrix:dump:standard' => 'BitrixDumpStandardCommand',
             'bitrix:dump:fixture' => 'BitrixDumpFixtureCommand',
+            'bitrix:install' => 'BitrixInstallCommand',
         );
         if (!array_key_exists($command, $commandClass)) {
             throw new \Exception(sprintf("Command %s not support", $command));
         }
 
+
+        $output = new NullOutput();
+        if ($command === 'bitrix:install') {
+            $output = new ConsoleOutput();
+        }
         $realCommand = $this->{"create" . $commandClass[$command]}();
-        $realCommand->run(new StringInput($data), new NullOutput());
+        $realCommand->run(new StringInput($data), $output);
     }
 
 }
