@@ -54,6 +54,6 @@ class Application extends BaseApplication
 
     public function getFixturesPath()
     {
-        return $this->vendorPath . Application::DEFAULT_FIXTURES_PATH;
+        return $this->getBasePath() . Application::DEFAULT_FIXTURES_PATH;
     }
 }
