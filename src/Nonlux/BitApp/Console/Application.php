@@ -3,6 +3,7 @@ namespace Nonlux\BitApp\Console;
 
 use Nonlux\BitApp\Console\Command\BitrixAssetsDump;
 use Nonlux\BitApp\Console\Command\BitrixClearAllCommand;
+use Nonlux\BitApp\Console\Command\BitrixDumpFixtureCommand;
 use Nonlux\BitApp\Console\Command\BitrixDumpKavsmCommand;
 use Nonlux\BitApp\Console\Command\BitrixInstallCommand;
 use Nonlux\BitApp\Console\Command\BitrixDumpStandardCommand;
@@ -15,6 +16,7 @@ class Application extends BaseApplication
 {
     const DEFAULT_DUMP_PATH = "/web";
     const DEFAULT_SOURCE_PATH="/bitrix/bitrixcms-standard";
+    const DEFAULT_FIXTURES_PATH = "/fixtures";
     const APP_NAME = "Bitapp";
     const VERSION = "DEV";
 
@@ -33,6 +35,7 @@ class Application extends BaseApplication
             array(
                 new BitrixClearAllCommand($this->getProjectPath()),
                 new BitrixDumpStandardCommand($this->getSourcePath(),$this->getProjectPath()),
+                new BitrixDumpFixtureCommand($this->getProjectPath(), $this->getFixturesPath())
             )
         );
     }
@@ -46,6 +49,11 @@ class Application extends BaseApplication
         return $this->getBasePath() . Application::DEFAULT_DUMP_PATH;
     }
     public function getSourcePath(){
-             return $this->vendorPath.Application::DEFAULT_SOURCE_PATH;
+        return $this->vendorPath . Application::DEFAULT_SOURCE_PATH;
+    }
+
+    public function getFixturesPath()
+    {
+        return $this->vendorPath . Application::DEFAULT_FIXTURES_PATH;
     }
 }

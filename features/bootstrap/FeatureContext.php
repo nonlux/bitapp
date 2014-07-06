@@ -8,6 +8,7 @@ use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 use Nonlux\BitApp\Console\Command\BitrixClearAllCommand;
 use Nonlux\BitApp\Console\Command\BitrixDumpStandardCommand;
+use Nonlux\BitApp\Console\Command\BitrixDumpFixtureCommand;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 
@@ -68,12 +69,7 @@ class FeatureContext extends BehatContext
      */
     public function iExecute($command)
     {
-        $commandMethods = array(
-            'bitrix:clear:all' => 'runBitrixClearAllCommand',
-            'bitrix:dump:standard' => 'runBitrixDumpStandardCommand',
-        );
-        $method = $commandMethods[$command];
-        $this->{$method}();
+        $this->iExecuteWith($command, '');
     }
 
     /**
@@ -92,16 +88,37 @@ class FeatureContext extends BehatContext
         PHPUnit_Framework_Assert::assertEquals($md5, md5_file($this->testProjectPath . "/$fileName"));
     }
 
-    protected function runBitrixClearAllCommand()
+    protected function createBitrixClearAllCommand()
     {
-        $command = new BitrixClearAllCommand($this->testProjectPath);
-        $command->run(new StringInput(''), new NullOutput());
+        return new BitrixClearAllCommand($this->testProjectPath);
     }
 
-    protected function runBitrixDumpStandardCommand()
+    protected function createBitrixDumpStandardCommand()
     {
-
-        $command = new BitrixDumpStandardCommand($this->bitrixSourcePath, $this->testProjectPath);
-        $command->run(new StringInput(''), new NullOutput());
+        return new BitrixDumpStandardCommand($this->bitrixSourcePath, $this->testProjectPath);
     }
+
+    protected function createBitrixDumpFixtureCommand()
+    {
+        return new BitrixDumpFixtureCommand($this->testProjectPath, $this->testPath . "/fixture");
+    }
+
+    /**
+     * @When /^I execute "([^"]*)" with "([^"]*)"$/
+     */
+    public function iExecuteWith($command, $data = '')
+    {
+        $commandClass = array(
+            'bitrix:clear:all' => 'BitrixClearAllCommand',
+            'bitrix:dump:standard' => 'BitrixDumpStandardCommand',
+            'bitrix:dump:fixture' => 'BitrixDumpFixtureCommand',
+        );
+        if (!array_key_exists($command, $commandClass)) {
+            throw new \Exception(sprintf("Command %s not support", $command));
+        }
+
+        $realCommand = $this->{"create" . $commandClass[$command]}();
+        $realCommand->run(new StringInput($data), new NullOutput());
+    }
+
 }
