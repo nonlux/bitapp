@@ -35,7 +35,8 @@ class Application extends BaseApplication
             array(
                 new BitrixClearAllCommand($this->getProjectPath()),
                 new BitrixDumpStandardCommand($this->getSourcePath(),$this->getProjectPath()),
-                new BitrixDumpFixtureCommand($this->getProjectPath(), $this->getFixturesPath())
+                new BitrixDumpFixtureCommand($this->getProjectPath(), $this->getFixturesPath()),
+                new BitrixInstallCommand($this->getProjectPath()),
             )
         );
     }
