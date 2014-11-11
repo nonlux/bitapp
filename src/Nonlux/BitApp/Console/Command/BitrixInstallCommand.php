@@ -21,11 +21,17 @@ class BitrixInstallCommand extends Command
 {
 
     protected $projectPath;
+    protected $config;
 
-    public function __construct($projectPath)
+    public function __construct($projectPath, $config)
     {
         $this->projectPath = $projectPath;
-        parent::__construct(null);
+        $this->config = $config;
+        $this->config['password']= $this->config['user_password'];
+        $this->config['bitrixRoot'] =$this->projectPath;
+        $this->config['admin_password_confirm']=$this->config['admin_password'];
+        parent::__construct();
+
     }
 
     protected function configure()
@@ -46,28 +52,27 @@ class BitrixInstallCommand extends Command
         ob_start();
         require_once("$bitrixRoot/bitrix/modules/main/install/wizard/wizard.php");
         ob_end_clean();
-        var_dump(file_get_contents("$bitrixRoot/bitrix/modules/main/admin/define.php"));
         $output->writeln("Step 1. Create database:");
         $wizard = new \CWizardBase("nonlux.createDb.wizard", null);
 
         $dbName = time() . "_db";
         $output->writeln("database name: $dbName");
-        $data = array(
-            "agree_license" => "Y",
-            "user" => "root",
-            "password" => "111",
-            "database" => $dbName,
-            "utf8" => "Y",
-            "dbType" => "mysql",
-            "host" => "localhost",
-            "create_user" => "N",
-            "create_database" => "Y",
-            "root_user" => "root",
-            "root_password" => "111",
-            'file_access_perms' => '0644',
-            'folder_access_perms' => '0755',
-            'bitrixRoot' => $bitrixRoot
-        );
+        $data = $this->getConfig(array(
+            "agree_license",
+            "user" ,
+            "password",
+            "database",
+            "utf8",
+            "dbType",
+            "host",
+            "create_user",
+            "create_database",
+            "root_user",
+            "root_password",
+            'file_access_perms',
+            'folder_access_perms',
+            'bitrixRoot'
+        ));
 
 
         foreach ($data as $key => $value) {
@@ -83,13 +88,19 @@ class BitrixInstallCommand extends Command
         $output->writeln("Step 2. Install modules:");
 
         $wizard = new \CWizardBase("nonlux.installModules.wizard", null);
-        $data = array(
-            "nextStep" => "main",
-            "nextStepStage" => "utf8",
-            'bitrixRoot' => $bitrixRoot,
-            "user" => "root",
-            "password" => "111",
-            "utf8" => "Y",
+        $data = array_merge(
+            array(
+                "nextStep" => "main",
+                "nextStepStage" => "utf8",
+            ),
+            $this->getConfig(
+                array(
+                    'bitrixRoot',
+                    "user",
+                    "password",
+                    "utf8",
+                )
+            )
         );
         $step = new CreateModulesStep();
         $wizard->AddStep($step);
@@ -114,15 +125,15 @@ class BitrixInstallCommand extends Command
         $USER = new \CUser;
         $policy = $USER->GetSecurityPolicy();
         $output->writeln("Step 3. Create admin:");
-        $data = array(
-            'email' => "nsa@dsa.ru",
-            'login' => 'admin',
-            'admin_password_confirm' => '111111',
-            'admin_password' => '111111',
-            'user_name' => 'qqq',
-            "utf8" => "Y",
-            'user_surname' => 'qqqq'
-        );
+        $data = $this->getConfig(array(
+            'email',
+            'login',
+            'admin_password_confirm',
+            'admin_password',
+            'user_name',
+            "utf8",
+            'user_surname'
+        ));
 
         foreach ($data as $key => $value) {
             $wizard->SetVar($key, $value);
@@ -136,6 +147,23 @@ class BitrixInstallCommand extends Command
         $step = new \FinishStep();
         $step->ShowStep();
 
+    }
+
+    protected function  getConfig ($keys){
+        $ret=array();
+        foreach ($keys as $key){
+            if (array_key_exists($key,$this->config)){
+                $ret[$key]=$this->config[$key];
+            }
+            else {
+                switch ($key){
+                    default:
+                        throw new \Exception("Key $key not found");
+                }
+            }
+        }
+
+        return $ret;
     }
 
 

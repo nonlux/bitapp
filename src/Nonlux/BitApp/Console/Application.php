@@ -11,6 +11,7 @@ use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\HelpCommand;
 use Symfony\Component\Console\Command\ListCommand;
+use Symfony\Component\Yaml\Yaml;
 
 class Application extends BaseApplication
 {
@@ -21,9 +22,11 @@ class Application extends BaseApplication
     const VERSION = "DEV";
 
     protected $vendorPath;
+    protected $config;
     public function __construct($vendorPath)
     {
         $this->vendorPath=$vendorPath;
+        $this->config = Yaml::parse("bitapp.yml");
         parent::__construct(Application::APP_NAME, Application::VERSION);
 
     }
@@ -36,7 +39,7 @@ class Application extends BaseApplication
                 new BitrixClearAllCommand($this->getProjectPath()),
                 new BitrixDumpStandardCommand($this->getSourcePath(),$this->getProjectPath()),
                 new BitrixDumpFixtureCommand($this->getProjectPath(), $this->getFixturesPath()),
-                new BitrixInstallCommand($this->getProjectPath()),
+                new BitrixInstallCommand($this->getProjectPath(), $this->config['install'] ),
             )
         );
     }

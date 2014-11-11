@@ -1,0 +1,19 @@
+install:
+  agree_license: Y
+  user: bitrix_1
+  user_password: pass
+  database: bitrix
+  utf8: Y
+  dbType: mysql
+  host: localhost
+  create_user: Y
+  create_database: Y
+  root_user: root
+  root_password: pass
+  file_access_perms: 0644
+  folder_access_perms: 0755
+  email: nsa@dsa.ru
+  login: admin
+  admin_password: 111111
+  user_surname: qqqq
+  user_name: qq
