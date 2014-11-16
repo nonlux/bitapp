@@ -10,10 +10,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "symfony/console":"2.4.*",
-        "symfony/filesystem":"2.4.*",
-        "symfony/finder":"2.4.*",
-        "symfony/yaml":"2.4.*"
+        "symfony/console":"2.6.*",
+        "symfony/filesystem":"2.6.*",
+        "symfony/finder":"2.6.*",
+        "symfony/yaml":"2.6.*"
     },
     "require-dev":{
         "bitrix/bitrixcms-standard":"dev-master",
