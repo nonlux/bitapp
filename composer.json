@@ -13,7 +13,9 @@
         "symfony/console":"2.6.*",
         "symfony/filesystem":"2.6.*",
         "symfony/finder":"2.6.*",
-        "symfony/yaml":"2.6.*"
+        "symfony/yaml":"2.6.*",
+        "doctrine/migrations":"dev-master",
+        "doctrine/orm":"dev-master"
     },
     "require-dev":{
         "bitrix/bitrixcms-standard":"dev-master",

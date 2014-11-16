@@ -1,6 +1,15 @@
-/vendor/*
-/.idea/*
+
+#composer files
+/vendor/
+composer.lock
+
+#IDE files
+/.idea/
+
+# project specific
+bitapp.yml
 /test_data/project
 /web/*
 /bin/*
 !/bin/bitapp
+
