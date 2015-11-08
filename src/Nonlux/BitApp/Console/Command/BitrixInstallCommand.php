@@ -42,9 +42,9 @@ class BitrixInstallCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("Install bitrix...");
         global $DB, $DBType, $DBHost, $DBLogin, $DBPassword, $DBName, $DBDebug, $DBDebugToFile, $APPLICATION, $USER, $arWizardConfig, $MESS;
         $bitrixRoot = $this->projectPath;
+        $output->writeln("Install bitrix... in  $bitrixRoot");
         $_SERVER["DOCUMENT_ROOT"] = $bitrixRoot;
         $_SERVER["REQUEST_URI"] = "/index.php";
         $_SERVER["QUERY_STRING"] = "";
@@ -55,7 +55,7 @@ class BitrixInstallCommand extends Command
         $output->writeln("Step 1. Create database:");
         $wizard = new \CWizardBase("nonlux.createDb.wizard", null);
 
-        $dbName = time() . "_db";
+        $dbName = $this->config['database'];
         $output->writeln("database name: $dbName");
         $data = $this->getConfig(array(
             "agree_license",
@@ -81,6 +81,11 @@ class BitrixInstallCommand extends Command
         $step = new \CreateDBStep();
         $wizard->AddStep($step);
         $step->OnPostForm();
+        $errors=$step->GetErrors();
+        if (isset($errors[0])){
+            $last_error=iconv('cp1251', 'utf-8', $errors[0][0]);
+            throw new \Exception($last_error);
+        }
         $output->writeln("Done");
 
         require_once $bitrixRoot . '/bitrix/php_interface/dbconn.php';
