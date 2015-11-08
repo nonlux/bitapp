@@ -52,7 +52,9 @@ class BitrixInstallCommand extends Command
         ob_start();
         require_once("$bitrixRoot/bitrix/modules/main/install/wizard/wizard.php");
         ob_end_clean();
-        $output->writeln("Step 1. Create database:");
+        $st=1;
+        $output->writeln("Step $st. Create database:");
+        ++$st;
         $wizard = new \CWizardBase("nonlux.createDb.wizard", null);
 
         $dbName = $this->config['database'];
@@ -87,10 +89,31 @@ class BitrixInstallCommand extends Command
             throw new \Exception($last_error);
         }
         $output->writeln("Done");
+        $output->writeln("Step $st. Generate config files:");
+        ++$st;
+        $settings=sprintf("<?php
+return array (
+        'className' => '\\Bitrix\\Main\\DB\\MysqliConnection',
+        'host' => '%s',
+        'database' => '%s',
+        'login' => '%s',
+        'password' => '%s',
+        'options' => 2,
+      );
+", $data['host'],$data['database'],$data['user'],$data['password']);
+        file_put_contents($bitrixRoot.'/bitrix/.db_settings.php', $settings);
+        $settings="<?php return require(__DIR__.'/.settings_prod.php');";
+        file_put_contents($bitrixRoot.'/bitrix/.settings.php', $settings);
+
+        $settings="<?php return require(__DIR__.'/dbconn_prod.php');";
+        file_put_contents($bitrixRoot.'/bitrix/.settings.php', $settings);
+
+        $output->writeln("Done");
 
         require_once $bitrixRoot . '/bitrix/php_interface/dbconn.php';
 
-        $output->writeln("Step 2. Install modules:");
+        $output->writeln("Step $st. Install modules:");
+        ++$st;
 
         $wizard = new \CWizardBase("nonlux.installModules.wizard", null);
         $data = array_merge(
@@ -129,7 +152,8 @@ class BitrixInstallCommand extends Command
 
         $USER = new \CUser;
         $policy = $USER->GetSecurityPolicy();
-        $output->writeln("Step 3. Create admin:");
+        $output->writeln("Step $st. Create admin:");
+        ++$st;
         $data = $this->getConfig(array(
             'email',
             'login',
