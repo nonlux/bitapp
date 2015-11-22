@@ -24,7 +24,7 @@ class CreateModulesStep extends \CreateModulesStep
 
     public function SetError($strError, $id = false)
     {
-        throw new \Exception($strError);
+        throw new \Exception("Error".$strError);
     }
 
     public function ShowStep()

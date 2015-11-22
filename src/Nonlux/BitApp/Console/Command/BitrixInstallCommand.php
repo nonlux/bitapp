@@ -45,14 +45,8 @@ class BitrixInstallCommand extends Command
         global $DB, $DBType, $DBHost, $DBLogin, $DBPassword, $DBName, $DBDebug, $DBDebugToFile, $APPLICATION, $USER, $arWizardConfig, $MESS;
         $bitrixRoot = $this->projectPath;
         $output->writeln("Install bitrix... in  $bitrixRoot");
-        $_SERVER["DOCUMENT_ROOT"] = $bitrixRoot;
-        $_SERVER["REQUEST_URI"] = "/index.php";
-        $_SERVER["QUERY_STRING"] = "";
-        define("B_PROLOG_INCLUDED", true);
-        ob_start();
-        require_once("$bitrixRoot/bitrix/modules/main/install/wizard/wizard.php");
-        ob_end_clean();
         $st=1;
+        /*
         $output->writeln("Step $st. Create database:");
         ++$st;
         $wizard = new \CWizardBase("nonlux.createDb.wizard", null);
@@ -89,11 +83,30 @@ class BitrixInstallCommand extends Command
             throw new \Exception($last_error);
         }
         $output->writeln("Done");
+         */
         $output->writeln("Step $st. Generate config files:");
         ++$st;
+        $data = $this->getConfig(array(
+            "agree_license",
+            "user" ,
+            "password",
+            "database",
+            "utf8",
+            "dbType",
+            "host",
+            "create_user",
+            "create_database",
+            "root_user",
+            "root_password",
+            'file_access_perms',
+            'folder_access_perms',
+            'bitrixRoot'
+        ));
+
+
         $settings=sprintf("<?php
 return array (
-        'className' => '\\Bitrix\\Main\\DB\\MysqliConnection',
+        'className' => '\\\\Bitrix\\\\Main\\\\DB\\\\MysqliConnection',
         'host' => '%s',
         'database' => '%s',
         'login' => '%s',
@@ -105,13 +118,19 @@ return array (
         $settings="<?php return require(__DIR__.'/.settings_prod.php');";
         file_put_contents($bitrixRoot.'/bitrix/.settings.php', $settings);
 
-        $settings="<?php return require(__DIR__.'/dbconn_prod.php');";
-        file_put_contents($bitrixRoot.'/bitrix/.settings.php', $settings);
 
         $output->writeln("Done");
 
+        $_SERVER["DOCUMENT_ROOT"] = $bitrixRoot;
+        $_SERVER["REQUEST_URI"] = "/index.php";
+        $_SERVER["QUERY_STRING"] = "";
+        define("B_PROLOG_INCLUDED", true);
+        ob_start();
+        require_once("$bitrixRoot/bitrix/modules/main/install/wizard/wizard.php");
+        ob_end_clean();
         require_once $bitrixRoot . '/bitrix/php_interface/dbconn.php';
-
+$connection = \Bitrix\Main\Application::getConnection();
+var_dump($connection);
         $output->writeln("Step $st. Install modules:");
         ++$st;
 
@@ -119,7 +138,7 @@ return array (
         $data = array_merge(
             array(
                 "nextStep" => "main",
-                "nextStepStage" => "utf8",
+                "nextStepStage" => "files",
             ),
             $this->getConfig(
                 array(
@@ -136,6 +155,7 @@ return array (
             $wizard->SetVar($key, $value);
         }
         do {
+            $wizard->SetVar("nextStepStage", "files");
             $output->writeln("Install " . $wizard->GetVar("nextStep") . " " . $wizard->GetVar("nextStepStage"));
 
             $step->OnPostForm();
@@ -150,6 +170,7 @@ return array (
 
         $output->writeln("Done");
 
+        /*
         $USER = new \CUser;
         $policy = $USER->GetSecurityPolicy();
         $output->writeln("Step $st. Create admin:");
@@ -175,6 +196,7 @@ return array (
         $output->writeln("Done");
         $step = new \FinishStep();
         $step->ShowStep();
+         */
 
     }
 
